@@ -1,11 +1,11 @@
 {
   "buildCommand": "next build",
   "framework": "nextjs",
-  "regions": ["iad1", "sfo1"],
+  "regions": ["iad1"],
   "crons": [
     {
       "path": "/api/cron/refresh-leaderboard",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/api/cron/daily-streaks",
