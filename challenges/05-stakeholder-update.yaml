@@ -1,0 +1,152 @@
+id: "stakeholder-update"
+version: "1.0.0"
+
+metadata:
+  title: "The Stakeholder Update"
+  shortDescription: "Write a project status update that different audiences can use"
+  category: "communication"
+  difficulty: 2
+  estimatedMinutes: 5
+  tags: ["beginner", "status-update", "multi-audience", "formatting"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Three stakeholders, three different needs, one update"
+    context: |
+      Your product launch is 3 weeks away. You need to send a project 
+      status update, but your three key stakeholders need different things:
+      - The CEO wants a 30-second read: are we on track?
+      - The VP of Engineering wants technical risk details
+      - The Marketing Director wants to know if launch collateral is ready
+      
+      Instead of writing three separate updates, you want AI to generate 
+      a single, well-structured update with sections that serve all three.
+    constraints:
+      - "One document, three audiences"
+      - "Launch is in 3 weeks"
+      - "Each section should be scannable"
+      - "Total update should be under 500 words"
+    persona: "You are a Program Manager"
+  
+  successCriteria:
+    idealOutcome: "A multi-section status update with an executive summary, technical details, and marketing readiness — each clearly labeled and appropriately detailed"
+    mustInclude:
+      - "Multiple audience identification"
+      - "Section structure per audience"
+      - "Appropriate depth per section"
+      - "Overall format and length constraints"
+    mustAvoid:
+      - "Single-audience update"
+      - "No section structure"
+      - "No length constraints"
+  
+  educational:
+    skillsTaught:
+      - "Multi-audience writing"
+      - "Information layering"
+      - "Scannable formatting"
+      - "Constraint balancing"
+    badExample:
+      prompt: "Write a project status update for my stakeholders"
+      score: 18
+      explanation: "No audience differentiation, no format, no context about what each person needs."
+    goodExample:
+      prompt: |
+        Write a project status update for our product launch (3 weeks away).
+        
+        The update should serve three audiences in one document:
+        1. EXECUTIVE SUMMARY (for CEO): 2-3 sentences. On track? Key risk?
+        2. TECHNICAL STATUS (for VP Engineering): Current blockers, risk items, timeline impact
+        3. MARKETING READINESS (for Marketing Director): Collateral status, launch prep checklist
+        
+        Format: Use clear section headers. Each section should be independently scannable.
+        Total length: Under 500 words.
+        Tone: Professional, factual, forward-looking.
+      score: 89
+      explanation: "Clear audience segmentation, section-specific requirements, format and length constraints, appropriate tone."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 120
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific are the requirements?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Every section has clear requirements and expected content."
+        good: "Most sections are well-defined."
+        fair: "General requirements but lacking specificity."
+        poor: "Vague request."
+    
+    - id: "context"
+      name: "Context"
+      description: "Audience and project context provided?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "All three audiences identified with specific needs. Project context is clear."
+        good: "Audiences identified, most needs specified."
+        fair: "Some audience awareness but not differentiated."
+        poor: "No audience differentiation."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Multi-section format defined?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Clear section-by-section structure with depth guidance per audience."
+        good: "Sections defined but depth not fully specified."
+        fair: "General structure mentioned."
+        poor: "No structure guidance."
+    
+    - id: "efficiency"
+      name: "Efficiency"
+      description: "Prompt is appropriately concise?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Comprehensive but not verbose. Every instruction adds value."
+        good: "Mostly concise with minor redundancies."
+        fair: "Some unnecessary detail."
+        poor: "Too terse or too verbose."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All elements addressed?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "All audiences, formats, constraints, and tone addressed."
+        good: "Most elements covered."
+        fair: "Main elements but missing supporting details."
+        poor: "Missing critical elements."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: []
+  nextChallenges: ["process-automator"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

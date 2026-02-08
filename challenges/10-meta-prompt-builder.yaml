@@ -1,0 +1,178 @@
+id: "meta-prompt-builder"
+version: "1.0.0"
+
+metadata:
+  title: "The Meta-Prompt Builder"
+  shortDescription: "Write a prompt that generates other prompts for your team"
+  category: "meta-prompting"
+  difficulty: 5
+  estimatedMinutes: 12
+  tags: ["expert", "meta-prompting", "systems-thinking", "scalability"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your team of 20 can't prompt — build them a prompt generator"
+    context: |
+      You've been asked to scale prompt engineering skills across your 
+      20-person marketing team. Most of them write prompts like "write me 
+      a blog post about X." Instead of training each person individually, 
+      you want to build a META-PROMPT: a prompt that GENERATES customized 
+      prompts for any marketing task.
+      
+      The meta-prompt should:
+      1. Ask the user for their marketing task
+      2. Gather key context (audience, channel, goals, brand voice)
+      3. Generate a high-quality, tailored prompt they can use
+      4. Include the key prompting principles automatically
+      
+      This is the ultimate prompt engineering challenge: you're writing 
+      a prompt that teaches AI to write prompts.
+    constraints:
+      - "Must work for any marketing task"
+      - "Output should be a ready-to-use prompt"
+      - "Must incorporate prompting best practices automatically"
+      - "Should gather context before generating"
+      - "Team has varying skill levels"
+    persona: "You are the Director of Marketing Operations"
+  
+  successCriteria:
+    idealOutcome: "A meta-prompt that accepts any marketing task and generates a well-structured, context-rich prompt incorporating audience, channel, tone, format, and success criteria"
+    mustInclude:
+      - "Context gathering framework"
+      - "Prompting best practices embedded"
+      - "Customization based on task type"
+      - "Output format for the generated prompt"
+      - "Quality criteria for the output prompt"
+    mustAvoid:
+      - "A single static prompt template"
+      - "No context gathering"
+      - "Generic output without customization"
+      - "Missing prompting principles"
+  
+  educational:
+    skillsTaught:
+      - "Meta-prompting"
+      - "Systems-level thinking"
+      - "Prompt template design"
+      - "Scalable AI workflows"
+      - "Teaching through prompts"
+    conceptExplanation: |
+      Meta-prompting is the highest level of prompt engineering. Instead 
+      of writing individual prompts, you create a SYSTEM that generates 
+      prompts. This requires understanding the principles deeply enough 
+      to encode them into instructions for AI. It's the difference between 
+      fishing and teaching someone to fish.
+    badExample:
+      prompt: "Create a prompt template for marketing tasks"
+      score: 10
+      explanation: "Too vague. No framework for context gathering, no principles embedded, no customization logic."
+    goodExample:
+      prompt: |
+        You are a Prompt Engineering Assistant for a marketing team. When a 
+        team member describes their marketing task, you will generate a 
+        high-quality, ready-to-use prompt for them.
+        
+        STEP 1: Gather context by asking about:
+        - What is the specific marketing task?
+        - Who is the target audience?
+        - What channel is this for? (email, social, blog, ad, etc.)
+        - What is the desired outcome? (awareness, conversion, engagement)
+        - What is the brand voice? (professional, casual, witty, authoritative)
+        - Any constraints? (word count, format, compliance requirements)
+        
+        STEP 2: Generate a prompt that includes:
+        - Role assignment for the AI
+        - Audience specification with psychographics
+        - Channel-specific format requirements
+        - Brand voice guidelines
+        - Success criteria / what good output looks like
+        - Length and format constraints
+        - Call to action specification
+        
+        STEP 3: Quality check the generated prompt against:
+        - Does it specify WHO the audience is?
+        - Does it define the FORMAT and LENGTH?
+        - Does it include TONE guidance?
+        - Does it have a clear SUCCESS CRITERIA?
+        - Would a junior marketer get a usable result from this prompt?
+        
+        Output the prompt in a code block so they can copy-paste it directly.
+        If any critical context is missing, ask before generating.
+      score: 90
+      explanation: "Clear 3-step process, context gathering framework, embedded best practices, quality checklist, and practical output format."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 300
+  
+  dimensions:
+    - id: "meta-design"
+      name: "Meta-Prompt Design"
+      description: "How well does the prompt generate other prompts?"
+      weight: 30
+      maxPoints: 30
+      rubric:
+        excellent: "Sophisticated system that reliably produces high-quality, customized prompts for any marketing task."
+        good: "Good system that produces decent prompts for most tasks."
+        fair: "Basic template that produces generic prompts."
+        poor: "Just a static template, not a generator."
+    
+    - id: "context-gathering"
+      name: "Context Gathering"
+      description: "Does it collect the right information?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Comprehensive context framework covering audience, channel, goals, voice, and constraints."
+        good: "Good context gathering with most key areas."
+        fair: "Basic context gathering."
+        poor: "No context gathering."
+    
+    - id: "principles"
+      name: "Embedded Principles"
+      description: "Are prompting best practices built in?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Key principles (audience, format, tone, length, success criteria) automatically included in every generated prompt."
+        good: "Most principles included."
+        fair: "Some principles but inconsistently applied."
+        poor: "No principles embedded."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "Full meta-prompt system?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Complete system with gathering, generation, quality check, and output formatting."
+        good: "Most system elements present."
+        fair: "Basic generation but missing quality check or context gathering."
+        poor: "Just a template."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["strategy-doc"]
+  unlockScore: 65
+  nextChallenges: []
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

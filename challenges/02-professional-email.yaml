@@ -1,0 +1,185 @@
+id: "professional-email"
+version: "1.0.0"
+
+metadata:
+  title: "The Professional Email"
+  shortDescription: "Draft a difficult stakeholder email using AI"
+  category: "communication"
+  difficulty: 1
+  estimatedMinutes: 5
+  tags: ["warm-up", "email", "stakeholder-management", "tone"]
+  author: "azim"
+  createdAt: "2026-02-01"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "A vendor missed their deadline — again"
+    context: |
+      Your key software vendor has missed their delivery deadline for the third 
+      time this quarter. The delayed feature is blocking your team's product launch. 
+      Your VP is asking for updates daily. You need to write a firm but professional 
+      email to the vendor's account manager that:
+      - Acknowledges the relationship
+      - States the impact clearly
+      - Requests a concrete remediation plan
+      - Sets a final deadline
+      You'll use AI to draft this email.
+    constraints:
+      - "Must maintain the vendor relationship"
+      - "VP is watching — needs to be professional"
+      - "Third missed deadline (pattern, not one-off)"
+      - "Product launch is blocked"
+    persona: "You are a Product Manager at a mid-size SaaS company"
+  
+  successCriteria:
+    idealOutcome: "A professional, firm email that balances relationship preservation with clear accountability and concrete next steps"
+    mustInclude:
+      - "Tone guidance (firm but professional)"
+      - "Key points to cover (impact, history, request)"
+      - "Output structure (email format)"
+      - "Relationship context"
+    mustAvoid:
+      - "Asking for a 'generic email'"
+      - "No tone specification"
+      - "Missing the escalation context"
+      - "No mention of desired outcome"
+  
+  educational:
+    skillsTaught:
+      - "Tone specification"
+      - "Multi-point instruction"
+      - "Context layering"
+      - "Output structure definition"
+    conceptExplanation: |
+      When asking AI to write communications, TONE is everything. 
+      "Write an email to my vendor" gives AI zero guidance on whether 
+      you want friendly, formal, aggressive, or diplomatic. 
+      Always specify: tone, key points, and the desired outcome.
+    badExample:
+      prompt: "Write an email to my vendor about a missed deadline"
+      score: 20
+      explanation: "No tone, no context about the relationship or stakes, no structure. AI will produce something generic and likely too soft or too harsh."
+    goodExample:
+      prompt: |
+        Write a professional but firm email to our software vendor's account manager. 
+        Context: They've missed their delivery deadline for the 3rd time this quarter, 
+        blocking our product launch. 
+        
+        The email should:
+        1. Acknowledge our partnership
+        2. State the pattern of missed deadlines
+        3. Explain the business impact (blocked launch)
+        4. Request a written remediation plan by Friday
+        5. Note that we'll need to discuss the contract if this continues
+        
+        Tone: Direct and professional. Not angry, but clearly serious.
+        Length: 200-250 words.
+      score: 90
+      explanation: "Clear tone, specific context, structured requirements, and a concrete ask. AI knows exactly what to produce."
+    expertExample:
+      prompt: |
+        Role: You are a Product Manager writing to a vendor account manager.
+        
+        Draft an email with subject line. Context:
+        - Vendor: CloudSync Solutions (our data integration partner for 2 years)
+        - Issue: 3rd missed delivery deadline this quarter
+        - Impact: Our Q1 product launch is now blocked, costing ~$50K/week in delay
+        - Recipient: Sarah Chen, Senior Account Manager
+        - Our relationship: Generally positive, but this pattern is concerning
+        
+        Email structure:
+        1. Opening: Brief positive note about partnership (1 sentence)
+        2. Issue: State the pattern factually (dates if possible)
+        3. Impact: Quantify business impact
+        4. Ask: Written remediation plan with milestones by EOD Friday
+        5. Escalation: Professional note about contract review if unresolved
+        6. Close: Express confidence in resolution
+        
+        Tone: Executive-level professional. Firm but fair. No passive-aggression.
+        Format: Ready to send (with subject line). 200-300 words.
+      score: 97
+      explanation: "Rich context, specific names/numbers, clear structure with purpose for each section, precise tone guidance, and ready-to-use format."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 120
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific and unambiguous is the request?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Request leaves no room for misinterpretation. Every element of the email is specified."
+        good: "Most elements are clear but 1-2 aspects could be interpreted differently."
+        fair: "General direction is clear but many details left to AI's judgment."
+        poor: "Request is vague. AI must guess most aspects of the email."
+    
+    - id: "context"
+      name: "Context"
+      description: "Did you provide enough background for AI to tailor the email?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Full context: relationship history, stakes, audience, desired outcome, and constraints."
+        good: "Good context with most key details but missing some nuance."
+        fair: "Basic context provided but missing relationship dynamics or stakes."
+        poor: "Minimal or no context. AI doesn't understand the situation."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Is the email structure clearly defined?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Clear section-by-section structure with purpose for each part."
+        good: "Key sections specified but not all parts are defined."
+        fair: "General format mentioned but no detailed structure."
+        poor: "No structural guidance for the email."
+    
+    - id: "tone"
+      name: "Tone & Voice"
+      description: "Did you specify the appropriate tone for the situation?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Precise tone guidance that balances firmness with professionalism. Specific about what to avoid."
+        good: "Tone is specified but could be more nuanced."
+        fair: "General tone mentioned but not specific enough for the delicate situation."
+        poor: "No tone guidance. AI will default to generic professional."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "Does the prompt cover all necessary email elements?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Covers all key points, format, length, subject line, and closing."
+        good: "Covers most elements but misses 1-2 details."
+        fair: "Covers the main ask but misses supporting elements."
+        poor: "Only addresses the basic topic, missing most details."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: []
+  nextChallenges: ["data-interpreter"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: true
+  isExperimental: false

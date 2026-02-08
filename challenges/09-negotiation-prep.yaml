@@ -1,0 +1,184 @@
+id: "negotiation-prep"
+version: "1.0.0"
+
+metadata:
+  title: "The Negotiation Prep"
+  shortDescription: "Use AI to prepare for a high-stakes vendor negotiation"
+  category: "roleplay"
+  difficulty: 4
+  estimatedMinutes: 8
+  tags: ["advanced", "negotiation", "roleplay", "preparation"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your biggest contract renewal is tomorrow — and they want a 40% price increase"
+    context: |
+      Your company's most critical software vendor (cloud infrastructure, 
+      $500K/year contract) just sent their renewal proposal with a 40% 
+      price increase. You need to negotiate this down to no more than 15%.
+      
+      You want AI to help you prepare by:
+      1. Analyzing your negotiation position (strengths and weaknesses)
+      2. Generating counter-arguments for each likely vendor justification
+      3. Creating a negotiation script with key talking points
+      4. Preparing BATNA (Best Alternative to Negotiated Agreement)
+      5. Suggesting creative win-win proposals
+      
+      This is the most complex prompting challenge: you need AI to 
+      THINK FROM MULTIPLE PERSPECTIVES simultaneously.
+    constraints:
+      - "$500K/year current contract"
+      - "40% proposed increase, 15% max acceptable"
+      - "3-year relationship with the vendor"
+      - "Switching costs are high but not impossible"
+      - "Negotiation meeting is tomorrow"
+    persona: "You are the VP of Procurement"
+  
+  successCriteria:
+    idealOutcome: "A comprehensive negotiation preparation package with position analysis, counter-arguments, talking points, BATNA, and creative proposals"
+    mustInclude:
+      - "Multi-perspective analysis (your side AND vendor's side)"
+      - "Specific counter-arguments with reasoning"
+      - "BATNA preparation"
+      - "Structured talking points"
+      - "Win-win proposals"
+    mustAvoid:
+      - "One-sided analysis only"
+      - "Generic negotiation tips"
+      - "No specific counter-arguments"
+      - "Missing BATNA"
+  
+  educational:
+    skillsTaught:
+      - "Multi-perspective prompting"
+      - "Role-based AI reasoning"
+      - "Structured preparation documents"
+      - "Strategic scenario planning"
+    badExample:
+      prompt: "Help me prepare for a vendor negotiation about a price increase"
+      score: 15
+      explanation: "No specifics about the contract, no negotiation framework, no multi-perspective analysis requested."
+    goodExample:
+      prompt: |
+        I need to prepare for a vendor contract renewal negotiation tomorrow.
+        
+        Context:
+        - Vendor: Cloud infrastructure provider, 3-year relationship
+        - Current contract: $500K/year
+        - Their proposal: 40% increase ($700K/year)
+        - Our target: No more than 15% increase ($575K)
+        - We have moderate switching costs (6-month migration)
+        
+        Prepare the following:
+        
+        1. POSITION ANALYSIS
+        - Our strengths (as a customer)
+        - Our weaknesses
+        - Vendor's likely arguments for the increase
+        - Our counter-arguments for each
+        
+        2. NEGOTIATION SCRIPT
+        - Opening statement
+        - Key talking points (in order of strength)
+        - Concession strategy (what we can give)
+        - Walk-away line
+        
+        3. BATNA
+        - Top 3 alternative vendors with rough pricing
+        - Migration timeline and costs
+        - How to credibly reference without threatening
+        
+        4. WIN-WIN PROPOSALS
+        - 3 creative options that reduce price while giving vendor something
+        (e.g., longer term, case study rights, volume commits)
+        
+        Format: Structured brief I can review in 30 minutes.
+      score: 91
+      explanation: "Rich context, multi-perspective analysis, structured preparation sections, creative win-win thinking, and practical format."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 240
+  
+  dimensions:
+    - id: "context"
+      name: "Context"
+      description: "Negotiation context and constraints provided?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Full contract details, relationship history, target outcome, and constraints."
+        good: "Most context provided."
+        fair: "Basic situation but missing key details."
+        poor: "Minimal context."
+    
+    - id: "perspective"
+      name: "Multi-Perspective"
+      description: "Both sides of the negotiation considered?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Explicitly requests analysis from both buyer and seller perspectives."
+        good: "Acknowledges vendor perspective."
+        fair: "Primarily one-sided."
+        poor: "Only considers own position."
+    
+    - id: "structure"
+      name: "Preparation Structure"
+      description: "Comprehensive preparation framework?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Complete prep package: analysis, script, BATNA, creative options, concession strategy."
+        good: "Good structure with most preparation elements."
+        fair: "Basic structure but missing key preparation areas."
+        poor: "No structured preparation requested."
+    
+    - id: "actionability"
+      name: "Actionability"
+      description: "Ready to use in the actual negotiation?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Produces a ready-to-use brief with talking points and specific responses."
+        good: "Mostly actionable."
+        fair: "Provides guidance but not specific enough to use directly."
+        poor: "Generic advice only."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All negotiation elements addressed?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Analysis, script, BATNA, creative proposals, and contingencies all covered."
+        good: "Most elements covered."
+        fair: "Main elements but missing BATNA or creative options."
+        poor: "Only basic points covered."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["crisis-comms"]
+  unlockScore: 65
+  nextChallenges: ["meta-prompt-builder"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

@@ -1,0 +1,207 @@
+id: "data-interpreter"
+version: "1.0.0"
+
+metadata:
+  title: "The Data Interpreter"
+  shortDescription: "Get AI to extract actionable insights from messy sales data"
+  category: "analysis"
+  difficulty: 1
+  estimatedMinutes: 5
+  tags: ["warm-up", "data-analysis", "insights", "structured-output"]
+  author: "azim"
+  createdAt: "2026-02-01"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Turn raw numbers into a story your team can act on"
+    context: |
+      You just exported a CSV of last month's sales data. It has 500 rows 
+      covering 12 sales reps, 4 regions, and 3 product lines. Your Sales 
+      Director asked you to "find anything interesting" before tomorrow's 
+      team meeting. You need to use AI to analyze the data and surface 
+      the top insights — but the AI needs to know what "interesting" means 
+      to YOUR business.
+    constraints:
+      - "Sales team meeting tomorrow"
+      - "500 rows of data across multiple dimensions"
+      - "Need actionable insights, not just numbers"
+      - "Director wants 'interesting' findings (vague!)"
+    persona: "You are a Sales Analyst"
+  
+  successCriteria:
+    idealOutcome: "A prompt that guides AI to find specific, actionable patterns in sales data — not just describe the columns"
+    mustInclude:
+      - "What 'interesting' means (define analysis goals)"
+      - "Output format (ranked insights, not raw analysis)"
+      - "Business context (what metrics matter)"
+      - "Actionability requirement (so what? now what?)"
+    mustAvoid:
+      - "'Analyze this data' with no direction"
+      - "No definition of what matters"
+      - "Asking for descriptions instead of insights"
+      - "No output format specification"
+  
+  educational:
+    skillsTaught:
+      - "Defining analysis objectives"
+      - "Guiding AI interpretation"
+      - "Structured output for data"
+      - "Actionability framing"
+    conceptExplanation: |
+      AI is great at finding patterns — but terrible at knowing which 
+      patterns matter to YOUR business. "Analyze this data" is like 
+      telling a new hire to "look at the spreadsheet." You need to 
+      tell AI what success looks like, what metrics matter, and how 
+      to present findings so they drive action.
+    badExample:
+      prompt: "Analyze this sales data and tell me what you find"
+      score: 15
+      explanation: "No analysis direction, no definition of 'interesting,' no output format. AI will describe column headers and basic statistics."
+    goodExample:
+      prompt: |
+        Analyze this monthly sales data (500 rows, 12 reps, 4 regions, 
+        3 product lines) and identify the top 5 most actionable insights 
+        for our sales team meeting tomorrow.
+        
+        Focus on:
+        - Which reps are significantly over/under performing vs. quota
+        - Any regional trends (growth or decline)
+        - Product mix shifts compared to previous months
+        - Any deals that look at risk
+        
+        For each insight, provide:
+        1. The finding (one sentence)
+        2. The data point supporting it
+        3. Recommended action
+        
+        Rank by business impact. Skip obvious observations.
+      score: 88
+      explanation: "Clear analysis framework, specific focus areas, structured output per insight, and actionability requirement."
+    expertExample:
+      prompt: |
+        Role: Senior Sales Analyst preparing insights for a Sales Director.
+        
+        Analyze this sales CSV (500 rows) across these dimensions:
+        - 12 sales reps (performance vs. individual quotas)
+        - 4 regions (Northeast, Southeast, West, Midwest)
+        - 3 product lines (Enterprise, Mid-Market, SMB)
+        
+        Analysis priorities (in order):
+        1. REVENUE RISK: Any rep or region trending >15% below quota
+        2. GROWTH SIGNALS: Reps/regions exceeding quota — what's working?
+        3. PRODUCT SHIFTS: Changes in product mix vs. last quarter
+        4. DEAL VELOCITY: Average deal cycle changes by segment
+        
+        Output format:
+        
+        **EXECUTIVE SUMMARY** (3 sentences max)
+        
+        **TOP 5 INSIGHTS** (ranked by revenue impact)
+        For each:
+        - Finding: [specific observation with numbers]
+        - Evidence: [data points]
+        - Risk/Opportunity: [$ impact estimate]
+        - Action: [specific recommendation for tomorrow's meeting]
+        
+        **WATCH LIST** (reps or deals needing immediate attention)
+        
+        Skip: Basic statistics, column descriptions, obvious trends.
+        Tone: Data-driven, direct, suitable for executive audience.
+      score: 96
+      explanation: "Role context, prioritized analysis framework, specific thresholds, rich output template with business impact quantification, and clear exclusions."
+
+  seedData:
+    type: "text"
+    content: |
+      Sample data structure (your actual data has 500 rows like this):
+      
+      Rep Name | Region | Product Line | Deal Size | Stage | Days in Pipeline | Quota | Actual
+      J. Smith | Northeast | Enterprise | $45,000 | Closed Won | 32 | $200,000 | $178,000
+      M. Garcia | West | Mid-Market | $12,500 | Negotiation | 45 | $150,000 | $95,000
+      K. Chen | Southeast | SMB | $3,200 | Proposal | 18 | $100,000 | $112,000
+      ... (497 more rows)
+    description: "Monthly sales pipeline export with rep performance data"
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 120
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific is the analysis request?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Analysis objectives are crystal clear with specific metrics, thresholds, and focus areas defined."
+        good: "Analysis direction is clear but some metrics or thresholds are left to AI's judgment."
+        fair: "General analysis direction given but many aspects are vague."
+        poor: "No clear analysis direction. Just 'analyze this data.'"
+    
+    - id: "context"
+      name: "Context"
+      description: "Did you provide business context for the analysis?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Full business context: what metrics matter, why, who the audience is, and what decisions depend on this."
+        good: "Good business context with most key details provided."
+        fair: "Some business context but missing key elements like audience or decision context."
+        poor: "No business context. AI doesn't know what matters."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Is the output format clearly defined?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Detailed output template with sections, ranking criteria, and per-insight structure."
+        good: "Output format specified but not all sections detailed."
+        fair: "General format mentioned but no detailed template."
+        poor: "No output format. AI will choose its own structure."
+    
+    - id: "actionability"
+      name: "Actionability"
+      description: "Does the prompt drive toward actionable findings?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Explicitly requires recommendations, impact assessment, and next steps for each insight."
+        good: "Asks for recommendations but doesn't structure them fully."
+        fair: "Implies actionability but doesn't explicitly require it."
+        poor: "Only asks for observations, not actions."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "Does the prompt cover all analysis dimensions?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Covers all data dimensions, prioritizes analysis areas, and specifies exclusions."
+        good: "Covers most dimensions but misses some analysis angles."
+        fair: "Covers basic analysis but overlooks important dimensions."
+        poor: "Only addresses surface-level analysis."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: []
+  nextChallenges: ["meeting-agenda", "stakeholder-update"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: true
+  isExperimental: false

@@ -1,0 +1,162 @@
+id: "clear-request"
+version: "1.2.0"
+
+metadata:
+  title: "The Clear Request"
+  shortDescription: "Ask AI to summarize a quarterly report for your CEO"
+  category: "summarization"
+  difficulty: 1
+  estimatedMinutes: 3
+  tags: ["warm-up", "executive-summary", "specificity"]
+  author: "azim"
+  createdAt: "2026-02-01"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your CEO needs a summary in 2 minutes"
+    context: |
+      You have a 10-page quarterly sales report sitting in your inbox. 
+      Your CEO just pinged you: "I'm walking into a board meeting in 2 minutes. 
+      What's the TL;DR on Q3?" You need to use AI to generate a quick summary 
+      that hits the key points without overwhelming them.
+    constraints:
+      - "CEO has only 2 minutes"
+      - "Board meeting context (high stakes)"
+      - "Q3 sales report (financial data)"
+    persona: "You are a Sales Operations Manager"
+  
+  successCriteria:
+    idealOutcome: "A concise 3-bullet executive summary with the most critical metrics (revenue vs target, biggest win, main concern)"
+    mustInclude:
+      - "Audience specification (CEO, board meeting)"
+      - "Output format (bullets, length)"
+      - "Content focus (what metrics matter)"
+    mustAvoid:
+      - "Vague requests ('summarize this')"
+      - "No length constraint"
+      - "No audience context"
+  
+  educational:
+    skillsTaught:
+      - "Audience awareness"
+      - "Output format specification"
+      - "Constraint setting"
+      - "Prioritization guidance"
+    conceptExplanation: |
+      The #1 mistake executives make when prompting AI is being too vague. 
+      "Summarize this" tells AI nothing about WHO needs the summary, 
+      HOW LONG it should be, or WHAT matters most. The result? Generic fluff.
+    badExample:
+      prompt: "Summarize this report"
+      score: 25
+      explanation: "No audience, no format, no focus. AI will guess—and guess wrong."
+    goodExample:
+      prompt: |
+        Summarize this Q3 sales report in 3 bullet points for a CEO 
+        with 2 minutes before a board meeting. Focus on: 
+        1) Revenue vs target
+        2) Biggest win this quarter  
+        3) Main concern to address
+      score: 92
+      explanation: "Clear audience (CEO), format (3 bullets), time constraint, and explicit focus areas."
+    expertExample:
+      prompt: |
+        You are a sales analyst preparing an executive briefing.
+        
+        Summarize this Q3 sales report for our CEO who has exactly 2 minutes 
+        before a board meeting. Output format:
+        
+        **BOTTOM LINE:** [One sentence: are we on track?]
+        
+        **3 KEY POINTS:**
+        1. Revenue: [actual] vs [target] ([+/- %])
+        2. Win: [biggest deal or achievement]
+        3. Risk: [main concern + mitigation status]
+        
+        Tone: Confident, data-driven, no fluff. Max 75 words total.
+      score: 98
+      explanation: "Role assignment, structured output template, tone guidance, word limit. This prompt will produce consistent, board-ready results every time."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 90
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific and unambiguous is the request?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Request is crystal clear with no room for misinterpretation. Specific numbers, formats, and expectations stated."
+        good: "Request is mostly clear but has 1-2 ambiguous elements that AI might interpret differently."
+        fair: "Request gives general direction but leaves significant room for AI to guess intent."
+        poor: "Request is vague or could mean multiple things. AI must make major assumptions."
+    
+    - id: "context"
+      name: "Context"
+      description: "Did you provide enough background for AI to tailor its response?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Provides audience, situation, stakes, and any relevant constraints. AI has full picture."
+        good: "Provides audience and basic situation but missing some helpful context."
+        fair: "Mentions audience OR situation but not both. AI has partial picture."
+        poor: "No context provided. AI doesn't know who this is for or why it matters."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Is the output format clearly defined?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Specifies exact format (bullets/paragraphs), length, sections, and organization."
+        good: "Specifies format type and approximate length but not detailed structure."
+        fair: "Mentions format preference but not specific enough to ensure consistency."
+        poor: "No format guidance. AI will choose its own structure."
+    
+    - id: "efficiency"
+      name: "Efficiency"
+      description: "Is the prompt appropriately concise?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Every word serves a purpose. Prompt is comprehensive but not verbose."
+        good: "Prompt is reasonably concise with minor redundancies."
+        fair: "Prompt has unnecessary repetition or could be streamlined significantly."
+        poor: "Prompt is either too terse (missing key info) or too verbose (buries the request)."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "Does the prompt address all aspects of the task?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Addresses all explicit requirements and anticipates implicit needs."
+        good: "Addresses all explicit requirements but misses some implicit optimizations."
+        fair: "Addresses main requirement but overlooks secondary aspects."
+        poor: "Missing critical elements of the task."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: []
+  nextChallenges: ["professional-email", "data-interpreter"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: true
+  isExperimental: false

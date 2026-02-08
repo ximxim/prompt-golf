@@ -1,0 +1,176 @@
+id: "process-automator"
+version: "1.0.0"
+
+metadata:
+  title: "The Process Automator"
+  shortDescription: "Design an AI workflow for a repetitive business process"
+  category: "automation"
+  difficulty: 3
+  estimatedMinutes: 7
+  tags: ["intermediate", "workflow", "automation", "process-design"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your team spends 5 hours a week on the same manual task"
+    context: |
+      Every Monday, your operations team receives 50-100 customer support 
+      tickets from the previous week. They manually:
+      1. Categorize each ticket (billing, technical, feature request, complaint)
+      2. Prioritize by severity (P1-P4)
+      3. Write a 1-sentence summary for each
+      4. Flag any tickets that need executive attention
+      5. Generate a weekly report with trends
+      
+      This takes 5 hours every week. You want to use AI to automate this 
+      workflow. Write a prompt that handles the full pipeline.
+    constraints:
+      - "50-100 tickets per batch"
+      - "4 categories, 4 priority levels"
+      - "Must flag executive-attention items"
+      - "Output must include weekly trend analysis"
+      - "Must be consistent and auditable"
+    persona: "You are a Customer Success Operations Lead"
+  
+  successCriteria:
+    idealOutcome: "A comprehensive prompt that processes tickets through categorization, prioritization, summarization, flagging, and trend analysis in a single structured pass"
+    mustInclude:
+      - "Category definitions with examples"
+      - "Priority criteria"
+      - "Output format specification"
+      - "Escalation/flagging rules"
+      - "Trend analysis requirements"
+    mustAvoid:
+      - "Vague 'process these tickets' requests"
+      - "No category definitions"
+      - "No priority criteria"
+      - "Missing output format"
+  
+  educational:
+    skillsTaught:
+      - "Multi-step workflow design"
+      - "Classification criteria specification"
+      - "Structured output for automation"
+      - "Edge case handling"
+    conceptExplanation: |
+      Automating processes with AI requires precision that goes beyond 
+      casual prompting. You need to define categories with examples, 
+      set clear decision criteria, specify exact output formats, and 
+      handle edge cases. Think of it as writing a brief for a new employee 
+      — if they'd have questions, your prompt is incomplete.
+    badExample:
+      prompt: "Categorize and summarize these support tickets"
+      score: 15
+      explanation: "No categories defined, no priority system, no output format, no trend analysis. AI will make up its own system."
+    goodExample:
+      prompt: |
+        Process this batch of customer support tickets through the following pipeline:
+        
+        Step 1 - CATEGORIZE each ticket into exactly one category:
+        - Billing: Payment issues, subscription changes, refund requests
+        - Technical: Bugs, errors, performance issues, integration problems
+        - Feature Request: New functionality asks, enhancement suggestions
+        - Complaint: Dissatisfaction, escalation threats, churn risk
+        
+        Step 2 - PRIORITIZE each ticket:
+        - P1 (Critical): Revenue impact >$10K, security issue, or data loss
+        - P2 (High): Customer threatening to churn, or blocking issue
+        - P3 (Medium): Impacting workflow but has workaround
+        - P4 (Low): Nice-to-have, cosmetic, or informational
+        
+        Step 3 - SUMMARIZE each ticket in one sentence (max 20 words)
+        
+        Step 4 - FLAG for executive attention if P1 or involves enterprise accounts (>$50K ARR)
+        
+        Step 5 - TREND ANALYSIS: Identify top 3 patterns across all tickets
+        
+        Output format: JSON array with fields: id, category, priority, summary, flagged, flag_reason
+        Append a "trends" section at the end.
+      score: 91
+      explanation: "Complete pipeline with defined categories, priority criteria, clear output format, and trend analysis."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 180
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific are the workflow steps?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Every step is crystal clear with no ambiguity."
+        good: "Most steps clear, minor ambiguities."
+        fair: "General workflow outlined but steps are vague."
+        poor: "Unclear what the AI should do."
+    
+    - id: "context"
+      name: "Context"
+      description: "Business context and criteria defined?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Category definitions, priority criteria, escalation rules all fully specified."
+        good: "Most criteria defined."
+        fair: "Some criteria but missing key definitions."
+        poor: "No criteria — AI must invent its own."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Pipeline and output format defined?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Clear step-by-step pipeline with precise output format specification."
+        good: "Pipeline defined, output format partially specified."
+        fair: "General structure but no detailed format."
+        poor: "No structure or format."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All pipeline stages covered?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "All 5 stages covered plus edge cases and consistency requirements."
+        good: "All stages covered but missing edge cases."
+        fair: "Main stages but missing flagging or trends."
+        poor: "Only basic categorization."
+    
+    - id: "efficiency"
+      name: "Efficiency"
+      description: "Prompt is production-ready and concise?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Ready to use in production. Comprehensive but not verbose."
+        good: "Mostly production-ready."
+        fair: "Would need refinement for production use."
+        poor: "Far from production-ready."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["clear-request"]
+  unlockScore: 45
+  nextChallenges: ["crisis-comms"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

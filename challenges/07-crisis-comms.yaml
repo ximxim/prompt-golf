@@ -1,0 +1,174 @@
+id: "crisis-comms"
+version: "1.0.0"
+
+metadata:
+  title: "The Crisis Communicator"
+  shortDescription: "Draft multi-channel crisis communications under pressure"
+  category: "communication"
+  difficulty: 3
+  estimatedMinutes: 8
+  tags: ["intermediate", "crisis-management", "multi-channel", "tone"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your product just had a data breach — the clock is ticking"
+    context: |
+      Your SaaS platform experienced a security incident. Customer data 
+      (email addresses and company names) was exposed for approximately 
+      2 hours before your team identified and patched the vulnerability. 
+      No passwords, financial data, or sensitive documents were affected.
+      
+      Your CEO needs you to draft communications for THREE channels 
+      within the next hour:
+      1. Customer email notification (required by regulation)
+      2. Public blog post / status page update
+      3. Internal Slack message for all employees
+      
+      Each needs a different tone, level of detail, and call to action.
+    constraints:
+      - "1-hour deadline for drafts"
+      - "3 different channels with different audiences"
+      - "Must be legally compliant (data breach notification)"
+      - "Balance transparency with not causing panic"
+      - "No passwords or financial data were exposed"
+    persona: "You are the Head of Communications"
+  
+  successCriteria:
+    idealOutcome: "Three distinct, appropriately-toned communications that are transparent, actionable, and legally mindful — each tailored to its channel and audience"
+    mustInclude:
+      - "Channel-specific tone and format"
+      - "What happened and what didn't happen"
+      - "What the company is doing about it"
+      - "What the audience should do"
+      - "Legal/compliance awareness"
+    mustAvoid:
+      - "One-size-fits-all message"
+      - "Minimizing or hiding the incident"
+      - "Over-sharing technical details to customers"
+      - "Missing action items for recipients"
+  
+  educational:
+    skillsTaught:
+      - "Multi-channel communication"
+      - "Crisis tone calibration"
+      - "Information hierarchy"
+      - "Audience-appropriate detail levels"
+      - "Legal awareness in prompting"
+    badExample:
+      prompt: "Write a data breach notification email"
+      score: 15
+      explanation: "Single channel, no tone guidance, no detail about what happened, no other audiences considered."
+    goodExample:
+      prompt: |
+        Our SaaS platform had a 2-hour data exposure incident. Exposed: 
+        email addresses and company names. NOT exposed: passwords, financial 
+        data, documents. Vulnerability is now patched.
+        
+        Draft 3 communications:
+        
+        1. CUSTOMER EMAIL:
+        - Tone: Transparent, empathetic, professional
+        - Include: what happened, what was/wasn't exposed, what we're doing, what they should do
+        - Length: 300 words max
+        - Include subject line
+        
+        2. PUBLIC STATUS PAGE:
+        - Tone: Factual, technical, confidence-building
+        - Include: timeline, scope, remediation steps, ongoing monitoring
+        - Length: 200 words
+        
+        3. INTERNAL SLACK:
+        - Tone: Direct, calm, action-oriented
+        - Include: what happened, what to tell customers who ask, who's handling what, FAQ
+        - Length: 150 words
+        
+        For all: Do NOT minimize the incident but do emphasize what was NOT compromised.
+      score: 92
+      explanation: "Three channels with differentiated tone, content requirements, length constraints, and cross-cutting guidance on transparency."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 180
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific are the requirements per channel?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Each channel has clear, distinct requirements with no ambiguity."
+        good: "Channels differentiated with mostly clear requirements."
+        fair: "Some differentiation but requirements overlap or are vague."
+        poor: "No channel differentiation."
+    
+    - id: "context"
+      name: "Context"
+      description: "Incident and audience context provided?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Full incident details, what was/wasn't exposed, all audiences, legal awareness."
+        good: "Good context with most details."
+        fair: "Basic incident info but missing nuance."
+        poor: "Minimal context."
+    
+    - id: "tone"
+      name: "Tone & Sensitivity"
+      description: "Appropriate tone guidance for crisis?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Channel-specific tone with guidance on transparency vs. reassurance balance."
+        good: "Tone specified per channel."
+        fair: "General tone mentioned but not per-channel."
+        poor: "No tone guidance."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Format and content structure defined?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Each channel has format, length, required sections, and content hierarchy."
+        good: "Format specified per channel."
+        fair: "General format but not per-channel."
+        poor: "No format guidance."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All crisis communication elements covered?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "All channels, action items, what/what-not exposed, remediation, and follow-up."
+        good: "Most elements covered."
+        fair: "Main messages but missing action items or follow-up."
+        poor: "Only basic notification."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["professional-email"]
+  unlockScore: 45
+  nextChallenges: ["strategy-doc"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

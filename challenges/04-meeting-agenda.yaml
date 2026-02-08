@@ -1,0 +1,140 @@
+id: "meeting-agenda"
+version: "1.0.0"
+
+metadata:
+  title: "The Meeting Architect"
+  shortDescription: "Design an AI-powered meeting agenda that drives decisions"
+  category: "planning"
+  difficulty: 2
+  estimatedMinutes: 5
+  tags: ["beginner", "meetings", "structure", "productivity"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "Your weekly team sync is wasting everyone's time"
+    context: |
+      Your 8-person product team has a weekly sync that always runs over 
+      the 60-minute slot. People ramble, topics go off-track, and action 
+      items get lost. Your Engineering VP just told you: "Fix the meeting 
+      or cancel it." You need AI to help you design a structured agenda 
+      template that keeps things focused and produces clear outcomes.
+    constraints:
+      - "60-minute maximum"
+      - "8 team members (2 PMs, 4 engineers, 1 designer, 1 QA)"
+      - "Must produce action items"
+      - "VP wants visible improvement by next week"
+    persona: "You are a Senior Product Manager"
+  
+  successCriteria:
+    idealOutcome: "A structured, time-boxed agenda template with clear sections, owners, and expected outputs for each segment"
+    mustInclude:
+      - "Time constraints per section"
+      - "Roles/owners for each segment"
+      - "Expected outputs (not just topics)"
+      - "Format specification (template structure)"
+    mustAvoid:
+      - "Asking for a 'meeting agenda' without structure"
+      - "No time boxing"
+      - "No output/decision expectations per segment"
+  
+  educational:
+    skillsTaught:
+      - "Template design via prompting"
+      - "Constraint specification"
+      - "Role-based structuring"
+      - "Output-oriented thinking"
+    badExample:
+      prompt: "Create a meeting agenda for my weekly team sync"
+      score: 20
+      explanation: "No team context, no time constraints, no format, no desired outputs. AI will produce a generic agenda."
+    goodExample:
+      prompt: |
+        Create a structured 60-minute weekly team sync agenda for an 
+        8-person product team (2 PMs, 4 engineers, 1 designer, 1 QA).
+        
+        Requirements:
+        - Time-box each section with specific minutes
+        - Assign an owner/facilitator to each section
+        - Each section should have a clear expected output (decision, action item, FYI)
+        - Include a 5-minute buffer for overflow
+        - End with a clear action items recap
+        
+        Format as a table: Time | Section | Owner | Expected Output
+      score: 87
+      explanation: "Team context, time boxing, role assignment, output expectations, and clear format specification."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 120
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific is the meeting design request?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Crystal clear requirements for every aspect of the agenda."
+        good: "Most requirements are clear with minor ambiguities."
+        fair: "General direction given but many details left to AI."
+        poor: "Vague request for a 'meeting agenda.'"
+    
+    - id: "context"
+      name: "Context"
+      description: "Team and meeting context provided?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Full team composition, meeting goals, current problems, and constraints."
+        good: "Team size and basic goals provided."
+        fair: "Some context but missing key details."
+        poor: "No context about the team or meeting."
+    
+    - id: "structure"
+      name: "Structure"
+      description: "Is the agenda format clearly defined?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Detailed format with time boxes, owners, outputs, and template structure."
+        good: "Format specified but not all elements detailed."
+        fair: "General format mentioned but not structured."
+        poor: "No format guidance."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All meeting elements addressed?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Covers all sections, transitions, outputs, follow-up, and edge cases."
+        good: "Covers main sections but misses some details."
+        fair: "Basic sections covered, missing supporting elements."
+        poor: "Only addresses the topic, not the structure."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["clear-request"]
+  unlockScore: 45
+  nextChallenges: ["stakeholder-update"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false

@@ -1,0 +1,182 @@
+id: "strategy-doc"
+version: "1.0.0"
+
+metadata:
+  title: "The Strategy Document"
+  shortDescription: "Get AI to help build a strategic recommendation with data-backed reasoning"
+  category: "strategy"
+  difficulty: 4
+  estimatedMinutes: 10
+  tags: ["advanced", "strategy", "reasoning", "frameworks"]
+  author: "azim"
+  createdAt: "2026-02-07"
+  updatedAt: "2026-02-07"
+
+content:
+  scenario:
+    headline: "The board wants a market entry recommendation by Friday"
+    context: |
+      Your company (a B2B SaaS analytics platform, $50M ARR) is evaluating 
+      entering the healthcare vertical. The board has asked for a strategic 
+      recommendation document that covers:
+      - Market opportunity sizing
+      - Competitive landscape analysis
+      - Required product modifications
+      - Go-to-market approach
+      - Risk assessment
+      - Financial projections (18-month horizon)
+      
+      You need AI to help structure this analysis. The challenge isn't 
+      getting AI to write — it's getting AI to THINK STRATEGICALLY 
+      about the problem using proper frameworks.
+    constraints:
+      - "B2B SaaS analytics platform, $50M ARR"
+      - "Healthcare vertical entry"
+      - "Board-level document quality"
+      - "Must use strategic frameworks"
+      - "18-month financial horizon"
+    persona: "You are the VP of Strategy"
+  
+  successCriteria:
+    idealOutcome: "A prompt that produces a structured strategic analysis using appropriate frameworks, with clear assumptions, data requirements, and actionable recommendations"
+    mustInclude:
+      - "Strategic framework specification (Porter's, SWOT, TAM/SAM/SOM, etc.)"
+      - "Company context and current position"
+      - "Structured output with all required sections"
+      - "Assumptions to state explicitly"
+      - "Decision criteria for the recommendation"
+    mustAvoid:
+      - "Asking for a 'strategy document' without frameworks"
+      - "No company context"
+      - "No output structure"
+      - "Generic advice without decision criteria"
+  
+  educational:
+    skillsTaught:
+      - "Strategic framework prompting"
+      - "Complex document structuring"
+      - "Assumption specification"
+      - "Decision-oriented output design"
+      - "Executive-level communication"
+    conceptExplanation: |
+      When using AI for strategic analysis, the quality of output depends 
+      entirely on the frameworks and constraints you provide. AI can apply 
+      Porter's Five Forces or SWOT analysis brilliantly — but only if you 
+      tell it to. The key is: specify the analytical lens, provide company 
+      context, define the output structure, and state assumptions explicitly.
+    badExample:
+      prompt: "Write a strategy document about entering the healthcare market"
+      score: 12
+      explanation: "No company context, no frameworks, no structure, no decision criteria. AI will produce generic consulting-speak."
+    goodExample:
+      prompt: |
+        Create a strategic recommendation document for entering the healthcare vertical.
+        
+        Company context:
+        - B2B SaaS analytics platform, $50M ARR, 500 customers
+        - Currently serving retail and financial services
+        - 150-person company, $20M in available investment capital
+        
+        Document structure:
+        1. EXECUTIVE SUMMARY (1 page max, include recommendation upfront)
+        2. MARKET ANALYSIS using TAM/SAM/SOM framework
+        3. COMPETITIVE LANDSCAPE using Porter's Five Forces
+        4. PRODUCT GAP ANALYSIS (what needs to change for healthcare)
+        5. GO-TO-MARKET STRATEGY (channels, partnerships, timeline)
+        6. FINANCIAL MODEL (18-month P&L projection with assumptions)
+        7. RISK MATRIX (likelihood vs. impact, with mitigations)
+        8. RECOMMENDATION with clear go/no-go criteria
+        
+        Key assumptions to state explicitly:
+        - Market growth rate
+        - Customer acquisition cost estimates
+        - Time to first healthcare customer
+        - HIPAA compliance timeline and cost
+        
+        Tone: Board-ready. Data-driven. Clear recommendation with supporting logic.
+      score: 93
+      explanation: "Rich company context, specific frameworks, structured output, explicit assumptions, and decision-oriented design."
+
+scoring:
+  maxScore: 100
+  timeBonus:
+    enabled: true
+    maxBonusPercent: 10
+    parTimeSeconds: 240
+  
+  dimensions:
+    - id: "clarity"
+      name: "Clarity"
+      description: "How specific are the analytical requirements?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Every section has clear analytical requirements and frameworks specified."
+        good: "Most sections well-defined."
+        fair: "General requirements but lacking analytical specificity."
+        poor: "Vague request for a 'strategy document.'"
+    
+    - id: "context"
+      name: "Context"
+      description: "Company and market context provided?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Full company profile, current position, resources, and market target."
+        good: "Good company context, most details provided."
+        fair: "Basic context but missing key business details."
+        poor: "No company context."
+    
+    - id: "frameworks"
+      name: "Strategic Frameworks"
+      description: "Appropriate frameworks specified?"
+      weight: 25
+      maxPoints: 25
+      rubric:
+        excellent: "Multiple appropriate frameworks specified with clear application guidance."
+        good: "Key frameworks mentioned."
+        fair: "Frameworks implied but not explicitly specified."
+        poor: "No analytical frameworks."
+    
+    - id: "structure"
+      name: "Document Structure"
+      description: "Output structure defined for board consumption?"
+      weight: 20
+      maxPoints: 20
+      rubric:
+        excellent: "Complete document structure with sections, depth, and executive summary."
+        good: "Good structure with most sections."
+        fair: "General structure but not board-ready."
+        poor: "No structure guidance."
+    
+    - id: "completeness"
+      name: "Completeness"
+      description: "All strategic elements covered?"
+      weight: 15
+      maxPoints: 15
+      rubric:
+        excellent: "Market, competitive, product, GTM, financial, risk, and recommendation all covered."
+        good: "Most strategic elements covered."
+        fair: "Main elements but missing supporting analysis."
+        poor: "Only covers basic market overview."
+  
+  judge:
+    model: "claude-sonnet-4-20250514"
+    temperature: 0
+  
+  thresholds:
+    excellent: 85
+    good: 65
+    passing: 45
+
+progression:
+  prerequisites: ["stakeholder-update"]
+  unlockScore: 65
+  nextChallenges: ["meta-prompt-builder"]
+  retries:
+    unlimited: true
+
+flags:
+  isActive: true
+  isFeatured: false
+  isExperimental: false
